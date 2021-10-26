@@ -2,8 +2,12 @@ import { GiNightSleep } from "react-icons/gi";
 import Button from "../elements/button";
 import welcome_bg from "../assets/welcome-bg.svg";
 import sleep_img from "../assets/sleep_analysis.svg";
-
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import SignUpForm from "./signUpForm";
+import LogInForm from "./logInForm";
 const Home = () => {
+  const match = useRouteMatch();
+
   return (
     <section className="md:flex">
       <section
@@ -11,20 +15,35 @@ const Home = () => {
         className="md:p-8 p-4 min-h-screen flex flex-col flex-1"
       >
         <header className="mb-6 flex gap-2 text-primary text-center text-4xl font-bold items-center justify-center">
-          <h1 className="md:text-6xl ">Sleep Tracker </h1>
+          <Link to="/">
+            <h1 className="md:text-6xl ">Sleep Tracker </h1>
+          </Link>
           <GiNightSleep></GiNightSleep>
         </header>
-
-        <div className="flex flex-col gap-4 w-4/5 max-w-xs m-auto">
-          <Button
-            text="Log in"
-            className="bg-primary text-white font-bold hover:opacity-50 transition duration-300"
-          ></Button>
-          <Button
-            text="Sign up"
-            className="text-primary bg-white border-opacity-50 shadow-2xl border border-primary font-bold hover:opacity-50 transition duration-300"
-          ></Button>
-        </div>
+        <Switch>
+          <Route exact path={`${match.path}`}>
+            <div className="flex flex-col gap-4 w-4/5 max-w-xs m-auto">
+              <Link to="/log-in">
+                <Button
+                  text="Log in"
+                  className="w-full bg-primary text-white font-bold hover:opacity-50 transition duration-300"
+                ></Button>
+              </Link>
+              <Link to="/sign-up">
+                <Button
+                  text="Sign up"
+                  className="w-full text-primary bg-white border-opacity-50 shadow-2xl border border-primary font-bold hover:opacity-50 transition duration-300"
+                ></Button>
+              </Link>
+            </div>
+          </Route>
+          <Route exact path={`${match.path}sign-up`}>
+            <SignUpForm></SignUpForm>
+          </Route>
+          <Route exact path={`${match.path}log-in`}>
+            <LogInForm></LogInForm>
+          </Route>
+        </Switch>
       </section>
       <section className="bg-primary min-h-screen px-6 py-4 text-white flex-1 md:text-center">
         <img

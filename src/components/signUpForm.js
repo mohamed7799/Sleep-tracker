@@ -1,11 +1,13 @@
 import Form from "../elements/form";
 import Button from "../elements/button";
 import InputField from "../elements/inputField";
+import { Link } from "react-router-dom";
 const SignUpForm = () => {
   return (
     <div className="max-w-md m-auto w-11/12">
       <Form>
         <label htmlFor="firstName">
+          First Name
           <InputField
             placeholder="First Name"
             type="text"
@@ -13,6 +15,7 @@ const SignUpForm = () => {
           ></InputField>
         </label>
         <label htmlFor="lastName">
+          Last Name
           <InputField
             placeholder="Last Name"
             type="text"
@@ -20,6 +23,7 @@ const SignUpForm = () => {
           ></InputField>
         </label>
         <label htmlFor="email">
+          Email
           <InputField
             placeholder="Email"
             type="email"
@@ -27,6 +31,7 @@ const SignUpForm = () => {
           ></InputField>
         </label>
         <label htmlFor="password">
+          Password
           <InputField
             placeholder="Password"
             type="password"
@@ -40,7 +45,10 @@ const SignUpForm = () => {
         ></Button>
       </Form>
       <p className="font-bold text-center capitalize my-4">
-        do not have an account ? <span className="text-primary"> Sign up</span>
+        have an account ?{" "}
+        <Link to="/log-in" className="text-primary">
+          Log in
+        </Link>
       </p>
     </div>
   );

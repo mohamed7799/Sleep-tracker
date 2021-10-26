@@ -1,10 +1,16 @@
 import Home from "./components/home";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const App = () => {
   return (
-    <main>
-      <Home></Home>
-    </main>
+    <Router>
+      <main>
+        <Switch>
+          <Route path="/">
+            <Home></Home>
+          </Route>
+        </Switch>
+      </main>
+    </Router>
   );
 };
 

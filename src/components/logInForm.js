@@ -1,7 +1,7 @@
 import Form from "../elements/form";
 import Button from "../elements/button";
 import InputField from "../elements/inputField";
-
+import { Link } from "react-router-dom";
 const LogInForm = () => {
   return (
     <div className="max-w-md m-auto w-11/12">
@@ -26,7 +26,10 @@ const LogInForm = () => {
         <Button text="Log in" className="bg-primary text-white border"></Button>
       </Form>
       <p className="font-bold text-center capitalize my-4">
-        do not have an account ? <span className="text-primary"> Sign up</span>
+        do not have an account ?{" "}
+        <Link to="/sign-up" className="text-primary">
+          Sign up
+        </Link>
       </p>
     </div>
   );
