@@ -39,10 +39,9 @@ const SignUpForm = () => {
           ></InputField>
         </label>
 
-        <Button
-          text="Sign up"
-          className="text-primary shadow-xlxl border border-primary"
-        ></Button>
+        <Button className="text-primary shadow-xlxl border border-primary">
+          Sign up
+        </Button>
       </Form>
       <p className="font-bold text-center capitalize my-4">
         have an account ?{" "}

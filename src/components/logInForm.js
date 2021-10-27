@@ -23,7 +23,7 @@ const LogInForm = () => {
           ></InputField>
         </label>
 
-        <Button text="Log in" className="bg-primary text-white border"></Button>
+        <Button className="bg-primary text-white border">Log in</Button>
       </Form>
       <p className="font-bold text-center capitalize my-4">
         do not have an account ?{" "}

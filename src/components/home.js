@@ -24,16 +24,14 @@ const Home = () => {
           <Route exact path={`${match.path}`}>
             <div className="flex flex-col gap-4 w-4/5 max-w-xs m-auto">
               <Link to="/log-in">
-                <Button
-                  text="Log in"
-                  className="w-full bg-primary text-white font-bold hover:opacity-50 transition duration-300"
-                ></Button>
+                <Button className="w-full bg-primary text-white font-bold hover:opacity-50 transition duration-300">
+                  Log in
+                </Button>
               </Link>
               <Link to="/sign-up">
-                <Button
-                  text="Sign up"
-                  className="w-full text-primary bg-white border-opacity-50 shadow-2xl border border-primary font-bold hover:opacity-50 transition duration-300"
-                ></Button>
+                <Button className="w-full text-primary bg-white border-opacity-50 shadow-2xl border border-primary font-bold hover:opacity-50 transition duration-300">
+                  Sign up
+                </Button>
               </Link>
             </div>
           </Route>
