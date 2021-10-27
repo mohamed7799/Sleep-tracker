@@ -1,6 +1,8 @@
 import Button from "../../elements/button";
 import { AiOutlinePlus } from "react-icons/ai";
 import EntriesTable from "./entriesTable";
+import Graph from "./graph";
+import HighlightList from "./hgilightsList";
 const UserDashBoard = () => {
   return (
     <section className="p-4 max-w-7xl m-auto">
@@ -11,7 +13,13 @@ const UserDashBoard = () => {
           <AiOutlinePlus size="1.5rem"></AiOutlinePlus> Add entry
         </Button>
       </div>
-      <EntriesTable></EntriesTable>
+      <div className="lg:flex lg:flex-row-reverse lg:gap-8 lg:mt-16">
+        <EntriesTable></EntriesTable>
+        <div className="lg:flex-1">
+          <Graph></Graph>
+          <HighlightList></HighlightList>
+        </div>
+      </div>
     </section>
   );
 };

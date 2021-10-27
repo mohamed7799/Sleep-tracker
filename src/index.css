@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .selected-btn {
+    @apply bg-primary text-white;
+  }
+  .not-selected-btn {
+    @apply bg-gray-300 text-gray-500;
+  }
+}
