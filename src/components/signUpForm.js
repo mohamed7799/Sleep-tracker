@@ -2,9 +2,16 @@ import Form from "../elements/form";
 import Button from "../elements/button";
 import InputField from "../elements/inputField";
 import { Link } from "react-router-dom";
+import { GiNightSleep } from "react-icons/gi";
 const SignUpForm = () => {
   return (
     <div className="max-w-md m-auto w-11/12">
+      <header className="mb-6 flex gap-2 text-primary text-center text-4xl font-bold items-center justify-center">
+        <Link to="/">
+          <h1 className="md:text-6xl ">Sleep Tracker </h1>
+        </Link>
+        <GiNightSleep></GiNightSleep>
+      </header>
       <Form>
         <label htmlFor="firstName">
           First Name
