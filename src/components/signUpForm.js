@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 import { GiNightSleep } from "react-icons/gi";
 import { useContext, useState } from "react";
 import { API_URL_CONTEXT } from "../contexts/API_url_context";
+import { USER_CONTEXT } from "../contexts/USER_context";
 import { useHistory } from "react-router";
 import axios from "axios";
 
 const SignUpForm = () => {
   //variable
   const API_URL = useContext(API_URL_CONTEXT);
+  const { setUser } = useContext(USER_CONTEXT);
   let history = useHistory();
   const [userData, setUserData] = useState({
     firstName: "",
@@ -47,6 +49,7 @@ const SignUpForm = () => {
       });
       if (response.data.msg === "success") {
         localStorage.setItem("token", `${response.data.token}`);
+        setUser(response.data.user);
         history.push("/dashboard");
         setIsEmail("");
         setIsPassword("");

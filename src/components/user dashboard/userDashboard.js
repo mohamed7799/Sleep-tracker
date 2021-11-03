@@ -4,16 +4,30 @@ import EntriesTable from "./entriesTable/entriesTable";
 import Graph from "./graph";
 import HighlightList from "./highlightsList/hgilightsList";
 import Model from "./model/model";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router";
 import axios from "axios";
 import { API_URL_CONTEXT } from "../../contexts/API_url_context";
-
+import { USER_CONTEXT } from "../../contexts/USER_context";
 const UserDashBoard = () => {
   //variables
   const [modelOpen, setModelOpen] = useState(false);
+  const { user } = useContext(USER_CONTEXT);
   const API_URL = useContext(API_URL_CONTEXT);
   //functions
+
+  const getUser = async () => {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/user`,
+      headers: { "Authorization": `${localStorage.getItem("token")}` },
+    });
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   if (!localStorage.getItem("token")) {
     return <Redirect to="/"></Redirect>;
@@ -23,7 +37,9 @@ const UserDashBoard = () => {
         <section className="p-4 max-w-7xl m-auto">
           <div className="flex flex-wrap flex-row-reverse justify-between items-center gap-6">
             <Button className="bg-primary text-white">Log out</Button>
-            <h3 className="text-primary font-bold">Hi, Mohamed Amged</h3>
+            <h3 className="text-primary font-bold">
+              Hi, {`${user.firstName} ${user.lastName}`}
+            </h3>
             <Button
               onClick={() => setModelOpen(true)}
               className="m-auto sm:mr-auto sm:ml-0 bg-primary text-white flex items-center gap-2"
