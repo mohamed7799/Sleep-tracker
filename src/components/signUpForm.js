@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { API_URL_CONTEXT } from "../contexts/API_url_context";
 import { USER_CONTEXT } from "../contexts/USER_context";
 import { useHistory } from "react-router";
+import { validateForm } from "../helpers/formValidation";
 import axios from "axios";
 
 const SignUpForm = () => {
@@ -26,11 +27,10 @@ const SignUpForm = () => {
     email: false,
     password: false,
   });
-
   const [isEmail, setIsEmail] = useState("");
   const [isPassword, setIsPassword] = useState("");
-  //functions
 
+  //functions
   const handleFormChange = (e) => {
     setUserData((prevState) => ({
       ...prevState,
@@ -70,27 +70,8 @@ const SignUpForm = () => {
     }
   };
 
-  const validateForm = () => {
-    let emptyFlag = false;
-    for (const property in userData) {
-      if (userData[property] === "") {
-        setUserDataEmptyFlag((prevState) => ({
-          ...prevState,
-          [property]: true,
-        }));
-        emptyFlag = true;
-      } else {
-        setUserDataEmptyFlag((prevState) => ({
-          ...prevState,
-          [property]: false,
-        }));
-      }
-    }
-    return emptyFlag;
-  };
-
   const signUp = () => {
-    if (!validateForm()) {
+    if (!validateForm(userData, setUserDataEmptyFlag)) {
       postUserData();
     }
   };

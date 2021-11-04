@@ -5,24 +5,30 @@ import Graph from "./graph";
 import HighlightList from "./highlightsList/hgilightsList";
 import Model from "./model/model";
 import { useState, useContext, useEffect } from "react";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import axios from "axios";
 import { API_URL_CONTEXT } from "../../contexts/API_url_context";
 import { USER_CONTEXT } from "../../contexts/USER_context";
 const UserDashBoard = () => {
   //variables
   const [modelOpen, setModelOpen] = useState(false);
-  const { user } = useContext(USER_CONTEXT);
+  const { user, setUser } = useContext(USER_CONTEXT);
   const API_URL = useContext(API_URL_CONTEXT);
-  //functions
+  let history = useHistory();
 
+  //functions
   const getUser = async () => {
     const response = await axios({
       method: "get",
       url: `${API_URL}/user`,
       headers: { "Authorization": `${localStorage.getItem("token")}` },
     });
-    console.log(response.data);
+    setUser(response.data);
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    history.push("/");
   };
 
   useEffect(() => {
@@ -36,7 +42,9 @@ const UserDashBoard = () => {
       <div className="relative w-full">
         <section className="p-4 max-w-7xl m-auto">
           <div className="flex flex-wrap flex-row-reverse justify-between items-center gap-6">
-            <Button className="bg-primary text-white">Log out</Button>
+            <Button onClick={logOut} className="bg-primary text-white">
+              Log out
+            </Button>
             <h3 className="text-primary font-bold">
               Hi, {`${user.firstName} ${user.lastName}`}
             </h3>
