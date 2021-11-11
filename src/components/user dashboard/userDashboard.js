@@ -39,30 +39,41 @@ const UserDashBoard = () => {
     return <Redirect to="/"></Redirect>;
   } else {
     return (
-      <div className="relative w-full">
-        <section className="p-4 max-w-7xl m-auto">
-          <div className="flex flex-wrap flex-row-reverse justify-between items-center gap-6">
-            <Button onClick={logOut} className="bg-primary text-white">
-              Log out
-            </Button>
-            <h3 className="text-primary font-bold">
-              Hi, {`${user.firstName} ${user.lastName}`}
-            </h3>
-            <Button
-              onClick={() => setModelOpen(true)}
-              className="m-auto sm:mr-auto sm:ml-0 bg-primary text-white flex items-center gap-2"
-            >
-              <AiOutlinePlus size="1.5rem"></AiOutlinePlus> Add entry
-            </Button>
-          </div>
-          <div className="lg:flex lg:flex-row-reverse lg:gap-8 lg:mt-16">
-            <EntriesTable></EntriesTable>
-            <div className="lg:flex-1">
-              <Graph></Graph>
-              <HighlightList></HighlightList>
+      <div className="relative w-full ">
+        {user && (
+          <section className="p-4 max-w-7xl m-auto min-h-screen">
+            <div className="flex flex-wrap flex-row-reverse justify-between items-center gap-6">
+              <Button onClick={logOut} className="bg-primary text-white">
+                Log out
+              </Button>
+              <h3 className="text-primary font-bold">
+                Hi, {`${user.firstName} ${user.lastName}`}
+              </h3>
+              <Button
+                onClick={() => setModelOpen(true)}
+                className="m-auto sm:mr-auto sm:ml-0 bg-primary text-white flex items-center gap-2"
+              >
+                <AiOutlinePlus size="1.5rem"></AiOutlinePlus> Add entry
+              </Button>
             </div>
-          </div>
-        </section>
+            <div className="lg:flex lg:flex-row-reverse lg:gap-8 lg:mt-16">
+              <EntriesTable entries={user.entries}></EntriesTable>
+              <div className="lg:flex-1">
+                {user.entries.length < 7 ? (
+                  <p className="my-auto text-center text-gray-600 text-xl">
+                    Add 7 or more entreis to see the graphs and the highlights
+                  </p>
+                ) : (
+                  <>
+                    <Graph entries={user.entries}></Graph>
+                    <HighlightList entries={user.entries}></HighlightList>
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
         <Model modelOpen={modelOpen} setModelOpen={setModelOpen}></Model>
       </div>
     );

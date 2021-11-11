@@ -12,6 +12,7 @@ const Graph = () => {
             fill: false,
             backgroundColor: "#2659DB",
             borderColor: "#2659DB",
+            scaleSteps: 5,
           },
         ],
       }}

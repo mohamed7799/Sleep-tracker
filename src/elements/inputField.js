@@ -5,9 +5,11 @@ const InputField = ({
   value,
   onChange,
   className,
+  readOnly,
 }) => {
   return (
     <input
+      readOnly={readOnly}
       onChange={onChange}
       value={value}
       name={name}
