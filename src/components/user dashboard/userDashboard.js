@@ -23,7 +23,12 @@ const UserDashBoard = () => {
       url: `${API_URL}/user`,
       headers: { "Authorization": `${localStorage.getItem("token")}` },
     });
-    setUser(response.data);
+    if (response.data.msg === "token not valid") {
+      logOut();
+    } else {
+      setUser(response.data);
+    }
+    console.log(response.data);
   };
 
   const logOut = () => {
