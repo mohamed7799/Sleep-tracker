@@ -28,7 +28,6 @@ const UserDashBoard = () => {
     } else {
       setUser(response.data);
     }
-    console.log(response.data);
   };
 
   const logOut = () => {
