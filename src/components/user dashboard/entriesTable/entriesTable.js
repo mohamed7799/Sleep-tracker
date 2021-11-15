@@ -17,12 +17,9 @@ const EntriesTable = ({ entries }) => {
             <p className="w-20 text-center capitalize">wake up time</p>
             <p className="w-20 text-center capitalize">sleep duration</p>
           </li>
-          <EntryCell></EntryCell>
-          <EntryCell></EntryCell>
-          <EntryCell></EntryCell>
-          <EntryCell></EntryCell>
-          <EntryCell></EntryCell>
-          <EntryCell></EntryCell>
+          {entries.map((entry) => (
+            <EntryCell entry={entry} key={entry._id}></EntryCell>
+          ))}
         </ul>
       ) : (
         <p className="my-8 text-center text-gray-600 text-xl">
