@@ -56,6 +56,7 @@ const Model = ({ modelOpen, setModelOpen }) => {
     let timeHourString = time.slice(0, 2);
     let timeHourNumber = parseInt(timeHourString);
     if (timeHourNumber > 12) {
+      timeHourNumber = timeHourNumber - 12;
       timeHourString = (timeHourNumber - 12).toString();
       if (timeHourNumber < 10) {
         timeHourString = `0${timeHourNumber}`;
@@ -147,7 +148,7 @@ const Model = ({ modelOpen, setModelOpen }) => {
             }}
             value={formData.date}
             type="date"
-            name="Date"
+            name="date"
           ></InputField>
         </label>
         <div className="flex mt-4 justify-between">
