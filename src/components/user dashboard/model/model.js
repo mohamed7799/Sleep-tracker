@@ -54,6 +54,7 @@ const Model = ({ modelOpen, setModelOpen }) => {
 
   const convertTimeFrom24h_To_12h = (time) => {
     let timeHourString = time.slice(0, 2);
+    let timeMinString = time.slice(3, 5);
     let timeHourNumber = parseInt(timeHourString);
     if (timeHourNumber > 12) {
       timeHourNumber = timeHourNumber - 12;
@@ -61,9 +62,13 @@ const Model = ({ modelOpen, setModelOpen }) => {
       if (timeHourNumber < 10) {
         timeHourString = `0${timeHourNumber}`;
       }
-      return `${timeHourString}:${time.slice(3, 5)} PM`;
+      return `${timeHourString}:${timeMinString} PM`;
+    } else if (timeHourNumber === 0) {
+      return `12:${timeMinString} AM`;
+    } else if (timeHourNumber === 12) {
+      return `12:${timeMinString} PM`;
     } else {
-      return `${timeHourString}:${time.slice(3, 5)} AM`;
+      return `${timeHourString}:${timeMinString} AM`;
     }
   };
 
