@@ -1,18 +1,22 @@
 import Form from "../../../elements/form";
 import InputField from "../../../elements/inputField";
 import Button from "../../../elements/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { API_URL_CONTEXT } from "../../../contexts/API_url_context";
+import { USER_CONTEXT } from "../../../contexts/USER_context";
+import axios from "axios";
 
 let date = new Date();
 
 const Model = ({ modelOpen, setModelOpen }) => {
   //variables
-
+  const API_URL = useContext(API_URL_CONTEXT);
+  const { user, setUser } = useContext(USER_CONTEXT);
   const [formData, setFormData] = useState({
     sleepTime: "00:00",
     wakeUpTime: "00:00",
-    SleepDuration: "0",
-    Date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+    sleepDuration: "0",
+    date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
   });
 
   //functions
@@ -48,11 +52,53 @@ const Model = ({ modelOpen, setModelOpen }) => {
     return `${sleepDurationHours + sleepDurationMinutes}`;
   };
 
+  const convertTimeFrom24h_To_12h = (time) => {
+    let timeHourString = time.slice(0, 2);
+    let timeHourNumber = parseInt(timeHourString);
+    if (timeHourNumber > 12) {
+      timeHourString = (timeHourNumber - 12).toString();
+      if (timeHourNumber < 10) {
+        timeHourString = `0${timeHourNumber}`;
+      }
+      return `${timeHourString}:${time.slice(3, 5)} PM`;
+    } else {
+      return `${timeHourString}:${time.slice(3, 5)} AM`;
+    }
+  };
+
+  const addEntry = async () => {
+    const sentEntry = {
+      ...formData,
+      sleepTime: convertTimeFrom24h_To_12h(formData.sleepTime),
+      wakeUpTime: convertTimeFrom24h_To_12h(formData.wakeUpTime),
+    };
+    const response = await axios({
+      method: "patch",
+      url: `${API_URL}/user`,
+      headers: { "Authorization": `${localStorage.getItem("token")}` },
+      data: {
+        entries: [...user.entries, sentEntry],
+      },
+    });
+    if (response.data.msg === "token not valid") {
+      alert("user is not authorized to make this request");
+    } else {
+      setFormData({
+        sleepTime: "00:00",
+        wakeUpTime: "00:00",
+        sleepDuration: calculateSleepDuration(),
+        date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+      });
+      setModelOpen(false);
+      console.log(response.data);
+      setUser(response.data);
+    }
+  };
+
   useEffect(() => {
-    console.log("just checking");
     setFormData({
       ...formData,
-      SleepDuration: calculateSleepDuration(),
+      sleepDuration: calculateSleepDuration(),
     });
   }, [formData.wakeUpTime, formData.sleepTime]);
 
@@ -88,7 +134,7 @@ const Model = ({ modelOpen, setModelOpen }) => {
           Sleep duration(hours)
           <InputField
             readOnly={true}
-            value={formData.SleepDuration}
+            value={formData.sleepDuration}
             type="text"
             name="SleepDuration"
           ></InputField>
@@ -99,7 +145,7 @@ const Model = ({ modelOpen, setModelOpen }) => {
             onChange={(e) => {
               setFormData({ ...formData, [e.target.name]: e.target.value });
             }}
-            value={formData.Date}
+            value={formData.date}
             type="date"
             name="Date"
           ></InputField>
@@ -117,16 +163,18 @@ const Model = ({ modelOpen, setModelOpen }) => {
               setFormData({
                 sleepTime: "00:00",
                 wakeUpTime: "00:00",
-                SleepDuration: "0",
-                Date: `${date.getFullYear()}-${date.getDate()}-${
+                sleepDuration: calculateSleepDuration(),
+                date: `${date.getFullYear()}-${
                   date.getMonth() + 1
-                }`,
+                }-${date.getDate()}`,
               });
             }}
           >
             Reset
           </Button>
-          <Button className="text-white bg-primary">Add</Button>
+          <Button onClick={addEntry} className="text-white bg-primary">
+            Add
+          </Button>
         </div>
       </Form>
     </section>

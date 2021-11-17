@@ -11,11 +11,11 @@ const EntriesTable = ({ entries }) => {
 
       {entries.length ? (
         <ul className="flex flex-col gap-3 mt-6 text-gray-500">
-          <li className="flex  justify-between items-center px-2">
-            <p className="w-20 text-center capitalize">date</p>
-            <p className="w-20 text-center capitalize">Sleep time</p>
-            <p className="w-20 text-center capitalize">wake up time</p>
-            <p className="w-20 text-center capitalize">sleep duration</p>
+          <li className="flex  justify-between gap-2 items-center px-2 text-sm font-bold">
+            <p className="w-28 text-center capitalize">date</p>
+            <p className="w-28 text-center capitalize">Sleep time</p>
+            <p className="w-28 text-center capitalize">wake up time</p>
+            <p className="w-28 text-center capitalize">sleep duration(hr)</p>
           </li>
           {entries.map((entry) => (
             <EntryCell entry={entry} key={entry._id}></EntryCell>

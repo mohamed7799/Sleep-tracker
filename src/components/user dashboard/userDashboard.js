@@ -62,7 +62,7 @@ const UserDashBoard = () => {
             </div>
             <div className="lg:flex lg:flex-row-reverse lg:gap-8 lg:mt-16">
               <EntriesTable entries={user.entries}></EntriesTable>
-              <div className="lg:flex-1">
+              <div className="lg:flex-1 mt-6 md:mt-0">
                 {user.entries.length < 7 ? (
                   <p className="my-auto text-center text-gray-600 text-xl">
                     Add 7 or more entreis to see the graphs and the highlights
