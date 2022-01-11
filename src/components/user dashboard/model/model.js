@@ -56,9 +56,10 @@ const Model = ({ modelOpen, setModelOpen }) => {
     let timeHourString = time.slice(0, 2);
     let timeMinString = time.slice(3, 5);
     let timeHourNumber = parseInt(timeHourString);
+    console.log(timeHourNumber);
     if (timeHourNumber > 12) {
-      timeHourNumber = timeHourNumber - 12;
       timeHourString = (timeHourNumber - 12).toString();
+      console.log(timeHourNumber);
       if (timeHourNumber < 10) {
         timeHourString = `0${timeHourNumber}`;
       }
